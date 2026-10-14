@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Madison Blueprint · My Healing · The Alchemy Lab</title>
+<!-- Published quietly on Christopher's word, 2026-10-14. Unguessable address, noindex, robots Disallow. -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="author" content="Christopher Hager">
+<meta name="theme-color" content="#1B0C20">
+<style>
+@font-face{font-family:'Space Grotesk';src:url('./fonts/SpaceGrotesk-a57c9413.woff2') format('woff2');font-weight:300 700;font-display:swap;}
+@font-face{font-family:'DM Sans';src:url('./fonts/DMSans-f6298972.woff2') format('woff2');font-weight:100 1000;font-display:swap;}
+@font-face{font-family:'Instrument Serif';src:url('./fonts/InstrumentSerif-99cc6edf.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:'Instrument Serif';src:url('./fonts/InstrumentSerif-fa1a1a83.woff2') format('woff2');font-weight:400;font-style:italic;font-display:swap;}
+
+:root{
+  --crown:#1B0C20; --crown-2:#2A1130; --card:#22102A; --ink:#EFE7DA; --dim:rgba(239,231,218,.7); --faint:rgba(239,231,218,.5);
+  --gold:#D9A648; --gold-2:#A57626; --teal:#5FC0AE; --blue:#8FB0F0; --rose:#E58BB0; --emerald:#3FA86A; --indigo:#7B6CE0; --violet:#AC9FF2;
+  --body-c:#7FD6A2; --work-c:#F2C230; --mind-c:#CFAAF2;
+  --display:'Instrument Serif',Georgia,serif; --head:'Space Grotesk',"Helvetica Neue",Arial,sans-serif; --sans:'DM Sans',-apple-system,"Segoe UI",Roboto,sans-serif;
+  --spectrum:linear-gradient(to right,#C8242B 0%,#E8732A 17%,#F2C230 33%,#3FA86A 50%,#2C5FC4 67%,#5A47C2 83%,#9B5FD0 100%);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--crown);color:var(--ink);font-family:var(--sans);font-size:17.5px;line-height:1.65;}
+a{color:inherit;}
+.wide{max-width:1180px;margin:0 auto;padding:0 26px;}
+.dots{position:relative;}
+.dots::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;background-image:radial-gradient(rgba(239,231,218,.08) 1px,transparent 1.2px);background-size:7px 7px;}
+.dots>*{position:relative;z-index:1;}
+
+/* ── Crumb ── */
+.crumb{display:flex;align-items:center;gap:12px;padding:16px 0;font-family:var(--head);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);}
+.crumb a{text-decoration:none;color:var(--gold);display:flex;align-items:center;gap:10px;}
+.crumb img{width:20px;}
+
+/* ── Hero ── */
+.hero{text-align:center;padding:10px 0 60px;overflow:hidden;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(95,192,174,.18) 0%,transparent 60%),radial-gradient(ellipse 120% 100% at 50% 50%,#1B0C20 0%,#21102E 55%,#2B1A5C 125%);}
+.bp{width:min(360px,80vw);height:auto;display:block;margin:6px auto 18px;overflow:visible;}
+.bp .grid line{stroke:#8FB0F0;stroke-opacity:.13;}
+.bp .draw{stroke-dasharray:420;stroke-dashoffset:420;animation:draw 3.2s cubic-bezier(.5,.1,.2,1) forwards;}
+.bp .d2{animation-delay:.8s;} .bp .d3{animation-delay:1.5s;}
+@keyframes draw{to{stroke-dashoffset:0;}}
+.bp .ray{animation:ray 7s ease-in-out infinite;transform-origin:180px 210px;}
+@keyframes ray{0%,100%{opacity:.55;}50%{opacity:.95;}}
+.bp .seed{animation:seed 6s ease-in-out infinite;}
+@keyframes seed{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.bp .fruit{opacity:0;animation:pop .6s 2.6s forwards;}
+@keyframes pop{from{opacity:0;transform:scale(.3);}to{opacity:1;transform:scale(1);}}
+.kicker{font-family:var(--head);font-size:11px;font-weight:600;letter-spacing:.34em;text-transform:uppercase;color:var(--teal);margin:0 0 16px;}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(3.2rem,10vw,6.6rem);line-height:.92;letter-spacing:-.025em;margin:0;color:#fff;}
+h1 em{font-style:italic;color:var(--gold);}
+.sub{font-family:var(--display);font-style:italic;font-size:clamp(1.25rem,3.4vw,1.75rem);color:var(--teal);margin:14px 0 0;}
+.dek{max-width:34em;margin:22px auto 0;color:var(--dim);font-size:1.05rem;}
+.meta-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:28px;}
+.chip{font-family:var(--head);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;padding:8px 14px;border-radius:30px;border:1px solid rgba(239,231,218,.18);color:var(--dim);background:rgba(27,12,32,.5);}
+.chip b{color:var(--gold);font-weight:700;}
+.howto{margin:26px auto 0;max-width:36em;font-size:.92rem;color:var(--faint);}
+.howto .t{pointer-events:none;}
+
+/* ── Tabs ── */
+.tabs{position:sticky;top:0;z-index:40;background:rgba(27,12,32,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(165,118,38,.28);}
+.tabs::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--spectrum);opacity:.85;}
+.tabs .in{max-width:1180px;margin:0 auto;display:flex;gap:6px;padding:10px 18px;overflow-x:auto;scrollbar-width:none;}
+.tabs .in::-webkit-scrollbar{display:none;}
+.tab{flex:0 0 auto;cursor:pointer;border:1px solid rgba(239,231,218,.14);background:transparent;color:var(--dim);font-family:var(--head);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:10px 16px;border-radius:30px;display:flex;gap:9px;align-items:center;transition:all .25s;}
+.tab i{width:9px;height:9px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c);}
+.tab small{font-size:9px;letter-spacing:.14em;padding:3px 7px;border-radius:20px;background:var(--gold);color:var(--crown);}
+.tab:hover{color:#fff;border-color:var(--c);}
+.tab[aria-selected="true"]{color:var(--crown);background:var(--c);border-color:var(--c);}
+.tab[aria-selected="true"] i{background:var(--crown);box-shadow:none;}
+
+/* ── Panels ── */
+.panel{padding:56px 0 30px;animation:fade .5s ease;}
+.panel[hidden]{display:none;}
+@keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+.sess-head{display:grid;grid-template-columns:1.15fr 1fr;gap:34px;align-items:center;margin-bottom:46px;}
+.eyebrow{font-family:var(--head);font-size:10.5px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--c,var(--gold));margin:0 0 10px;}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(2.3rem,5.4vw,3.5rem);line-height:1.02;margin:0;color:#fff;letter-spacing:-.015em;}
+h2 em{font-style:italic;color:var(--c,var(--gold));}
+.sess-head p.lede{margin:14px 0 0;color:var(--dim);font-size:1.05rem;}
+.scene{border-radius:6px;overflow:hidden;border:1px solid rgba(239,231,218,.1);background:linear-gradient(170deg,#24113A,#160A1A);}
+.scene svg{display:block;width:100%;height:auto;}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+
+.brought{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;background:rgba(239,231,218,.035);border:1px solid rgba(239,231,218,.1);border-left:3px solid var(--c,var(--gold));border-radius:4px;padding:20px 22px;margin-bottom:46px;}
+.brought .ic{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:rgba(239,231,218,.06);color:var(--c,var(--gold));}
+.brought h4{margin:0 0 4px;font-family:var(--head);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--c,var(--gold));}
+.brought p{margin:0;color:var(--dim);}
+
+/* Three columns of takeaways */
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.col-head{display:flex;align-items:center;gap:14px;padding-bottom:14px;margin-bottom:16px;border-bottom:1px solid rgba(239,231,218,.12);}
+.col-head .badge{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,var(--k) 0%,transparent 75%);color:#fff;position:relative;}
+.col-head .badge::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px dashed var(--k);opacity:.6;animation:spin 18s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.col-head h3{margin:0;font-family:var(--display);font-weight:400;font-size:2rem;line-height:1;color:#fff;}
+.col-head span{display:block;font-family:var(--head);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--k);margin-top:4px;}
+.tk{background:var(--card);border:1px solid rgba(239,231,218,.08);border-radius:5px;padding:16px 16px 14px;margin-bottom:12px;position:relative;transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s;opacity:0;transform:translateY(14px);}
+.tk.in{opacity:1;transform:none;}
+.tk:hover{border-color:var(--k);box-shadow:0 10px 30px rgba(0,0,0,.35),0 0 30px -14px var(--k);transform:translateY(-3px);}
+.tk .row{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;}
+.tk .ico{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:rgba(239,231,218,.05);color:var(--k);}
+.tk h5{margin:2px 0 4px;font-family:var(--head);font-size:1.02rem;font-weight:600;line-height:1.3;color:#fff;letter-spacing:.005em;}
+.tk p{margin:0;font-size:.95rem;color:var(--dim);line-height:1.58;}
+.tk details{margin-top:10px;}
+.tk summary{cursor:pointer;list-style:none;font-family:var(--head);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--k);display:inline-flex;align-items:center;gap:7px;padding:4px 0;}
+.tk summary::-webkit-details-marker{display:none;}
+.tk summary::before{content:"+";display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;border:1px solid var(--k);font-size:12px;line-height:1;transition:transform .25s;}
+.tk details[open] summary::before{content:"–";}
+.tk blockquote{margin:8px 0 2px;padding:10px 14px;border-left:2px solid var(--k);background:rgba(239,231,218,.035);font-family:var(--display);font-style:italic;font-size:1.12rem;line-height:1.4;color:#fff;border-radius:0 4px 4px 0;}
+.tk blockquote cite{display:block;margin-top:6px;font-family:var(--head);font-style:normal;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);}
+
+/* Protocol */
+.block{margin-top:70px;}
+.block-head{display:flex;align-items:end;justify-content:space-between;gap:18px;border-bottom:1px solid rgba(239,231,218,.12);padding-bottom:16px;margin-bottom:24px;}
+.block-head h3{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,4vw,2.6rem);color:#fff;line-height:1.05;}
+.block-head h3 em{color:var(--c,var(--gold));}
+.block-head p{margin:6px 0 0;color:var(--dim);max-width:40em;font-size:.97rem;}
+.rx{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.pill{background:linear-gradient(165deg,#2A1336,#1C0D22);border:1px solid rgba(239,231,218,.1);border-radius:6px;padding:18px 18px 16px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:transform .3s,border-color .3s;}
+.pill:hover{transform:translateY(-3px);border-color:var(--p);}
+.pill::before{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,var(--p) 0%,transparent 70%);opacity:.22;}
+.pill .top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.pill .ico{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(239,231,218,.06);color:var(--p);flex:0 0 auto;}
+.pill h4{margin:0;font-family:var(--head);font-size:1.05rem;font-weight:600;color:#fff;line-height:1.25;}
+.pill .maker{display:block;font-family:var(--head);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--p);margin-top:3px;}
+.pill dl{margin:4px 0 12px;display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:.9rem;}
+.pill dt{font-family:var(--head);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);padding-top:4px;}
+.pill dd{margin:0;color:var(--dim);line-height:1.5;}
+.pill .why{font-family:var(--display);font-style:italic;font-size:1.05rem;color:#fff;line-height:1.35;margin:0 0 14px;flex:1;}
+.pill .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid rgba(239,231,218,.08);padding-top:12px;}
+.status{font-family:var(--head);font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:4px 9px;border-radius:20px;border:1px solid rgba(239,231,218,.2);color:var(--dim);}
+.status.now{background:var(--emerald);color:#0E1A12;border-color:var(--emerald);}
+.buy{font-family:var(--head);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--crown);background:var(--gold);padding:8px 12px;border-radius:4px;display:inline-flex;gap:6px;align-items:center;transition:background .2s;}
+.buy:hover{background:#F2C46A;}
+.buy.ghost{background:transparent;color:var(--faint);border:1px dashed rgba(239,231,218,.25);}
+
+/* Footnote */
+.note{margin-top:70px;background:linear-gradient(170deg,#241326,#170B1A);border:1px solid rgba(217,166,72,.3);border-radius:6px;padding:30px 30px 24px;position:relative;}
+.note::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--spectrum);opacity:.6;border-radius:6px 6px 0 0;}
+.note h3{margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:2rem;color:#fff;}
+.note h3 em{color:var(--gold);}
+.note > p{margin:0 0 20px;color:var(--faint);font-size:.95rem;}
+.note ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;counter-reset:n;}
+.note li{counter-increment:n;display:grid;grid-template-columns:30px 1fr;gap:12px;font-size:.95rem;color:var(--dim);line-height:1.55;}
+.note li::before{content:counter(n);font-family:var(--display);font-size:1.6rem;line-height:1;color:var(--gold);}
+.note li b{color:#fff;font-weight:600;}
+.note li a{color:var(--gold);}
+
+/* Threads */
+.timeline{position:relative;margin:10px 0 60px;padding:30px 0 6px;}
+.tl-track{position:relative;height:4px;border-radius:4px;background:rgba(239,231,218,.1);margin:0 6%;}
+.tl-fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:4px;background:var(--spectrum);transition:width 2.4s cubic-bezier(.4,.1,.2,1);}
+.timeline.in .tl-fill{width:100%;}
+.tl-stops{display:grid;grid-template-columns:repeat(6,1fr);margin-top:-14px;}
+.stop{text-align:center;padding:0 6px;opacity:.25;transition:opacity .6s;}
+.timeline.in .stop{opacity:1;}
+.stop .dot{width:24px;height:24px;border-radius:50%;margin:0 auto 12px;background:var(--crown);border:3px solid var(--s);box-shadow:0 0 16px var(--s);}
+.stop.hollow .dot{border-style:dashed;box-shadow:none;}
+.stop b{display:block;font-family:var(--head);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--s);}
+.stop span{display:block;font-size:.88rem;color:var(--dim);line-height:1.4;margin-top:4px;}
+.threads{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+.thread{background:var(--card);border:1px solid rgba(239,231,218,.08);border-radius:6px;padding:20px 20px 18px;position:relative;opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s,border-color .3s;}
+.thread.in{opacity:1;transform:none;}
+.thread:hover{border-color:var(--h);}
+.thread .th{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.thread .ico{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,var(--h) 0%,transparent 80%);color:#fff;}
+.thread h4{margin:0;font-family:var(--display);font-weight:400;font-size:1.6rem;line-height:1.05;color:#fff;}
+.pair{display:grid;grid-template-columns:1fr 26px 1fr;align-items:stretch;}
+.pair .side{background:rgba(239,231,218,.035);border-radius:4px;padding:10px 12px;font-size:.9rem;color:var(--dim);line-height:1.5;}
+.pair .side small{display:block;font-family:var(--head);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--h);margin-bottom:4px;}
+.pair .link{display:grid;place-items:center;color:var(--h);}
+.pair .link svg{animation:nudge 2.4s ease-in-out infinite;}
+@keyframes nudge{0%,100%{transform:translateX(-2px);}50%{transform:translateX(3px);}}
+.thread .so{margin:12px 0 0;font-size:.93rem;color:#fff;}
+.thread .so b{font-family:var(--head);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--h);margin-right:6px;}
+
+/* Glossary terms + popover */
+.t{font:inherit;text-transform:inherit;letter-spacing:inherit;color:inherit;background:none;border:0;padding:0;cursor:help;border-bottom:1.5px dotted var(--gold);text-decoration:none;}
+.t:hover,.t:focus-visible{color:#fff;border-bottom-style:solid;outline:none;}
+.pop{position:fixed;z-index:100;max-width:330px;background:#2C1538;border:1px solid var(--gold);border-radius:8px;padding:14px 16px 13px;box-shadow:0 20px 60px rgba(0,0,0,.6);opacity:0;transform:translateY(6px) scale(.98);pointer-events:none;transition:opacity .18s,transform .18s;}
+.pop.on{opacity:1;transform:none;pointer-events:auto;}
+.pop .pt{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.pop .pt i{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(217,166,72,.15);color:var(--gold);font-style:normal;}
+.pop b{font-family:var(--display);font-weight:400;font-size:1.35rem;color:#fff;line-height:1;}
+.pop p{margin:0;font-size:.92rem;line-height:1.5;color:var(--ink);}
+.pop .src{display:block;margin-top:8px;font-family:var(--head);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);}
+
+/* Close */
+.close{text-align:center;padding:100px 0 90px;margin-top:70px;background:radial-gradient(ellipse 120% 120% at 50% 20%,#2A1130 0%,#1B0C20 60%,#2B1A5C 150%);}
+.close img{width:34px;opacity:.9;margin-bottom:22px;}
+.close p.big{font-family:var(--display);font-size:clamp(1.6rem,4.2vw,2.5rem);line-height:1.2;color:#fff;max-width:21em;margin:0 auto;}
+.close p.big em{color:var(--gold);}
+.close p.by{margin-top:20px;font-family:var(--head);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);}
+footer{background:#120714;text-align:center;padding:44px 28px 50px;color:var(--faint);font-size:.9rem;}
+footer img{width:42px;opacity:.85;}
+footer p{margin:10px 0 0;}
+footer a{color:var(--gold);}
+
+@media (max-width:1000px){.cols{grid-template-columns:1fr 1fr;}.cols .col:last-child{grid-column:span 2;}.rx{grid-template-columns:1fr 1fr;}}
+@media (max-width:760px){
+  .sess-head{grid-template-columns:1fr;}
+  .cols,.rx,.threads{grid-template-columns:1fr;}.cols .col:last-child{grid-column:auto;}
+  .note ol{grid-template-columns:1fr;}
+  .tl-stops{grid-template-columns:repeat(3,1fr);row-gap:22px;}
+  .tl-track{display:none;}
+  .pair{grid-template-columns:1fr;}.pair .link{transform:rotate(90deg);height:24px;}
+  .pop{left:12px !important;right:12px !important;max-width:none;bottom:14px !important;top:auto !important;}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none !important;transition:none !important;}.tk,.thread{opacity:1;transform:none;}.bp .draw{stroke-dashoffset:0;}.bp .fruit{opacity:1;}html{scroll-behavior:auto;}}
+</style>
+</head>
+<body>
+
+<header class="hero dots" id="top">
+  <div class="wide">
+    <nav class="crumb"><a href="https://hagerca.github.io/#healing"><img src="./assets/mark-light.png" alt="">The Alchemy Lab</a> <span>/</span> <span>My Healing</span></nav>
+    <svg class="bp" viewBox="0 0 360 250" aria-hidden="true">
+      
+      <defs>
+        <linearGradient id="rb" x1="0" x2="1"><stop offset="0" stop-color="#C8242B"/><stop offset=".2" stop-color="#E8732A"/><stop offset=".38" stop-color="#F2C230"/><stop offset=".55" stop-color="#3FA86A"/><stop offset=".72" stop-color="#2C5FC4"/><stop offset=".86" stop-color="#5A47C2"/><stop offset="1" stop-color="#9B5FD0"/></linearGradient>
+      </defs>
+      <g id="gridlines"></g>
+      <path class="ray" d="M60 210 A120 120 0 0 1 300 210" fill="none" stroke="url(#rb)" stroke-width="5" stroke-linecap="round" opacity=".7"/>
+      <path class="ray" d="M80 210 A100 100 0 0 1 280 210" fill="none" stroke="url(#rb)" stroke-width="1.5" stroke-linecap="round" opacity=".4" style="animation-delay:1.2s"/>
+      <line x1="30" y1="210" x2="330" y2="210" stroke="#D9A648" stroke-width="1.6"/>
+      <path class="draw" d="M180 210 C177 180 184 150 180 112" stroke="#D9A648" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path class="draw d2" d="M180 150 C160 140 146 126 140 106 M180 134 C200 124 214 110 220 92 M180 118 C168 104 166 90 170 76 M180 116 C194 104 198 88 194 72" stroke="#7FD6A2" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path class="draw d3" d="M180 210 C170 222 150 230 128 244 M180 210 C192 224 210 232 236 244 M180 210 V246 M160 222 C148 226 136 224 122 230 M200 222 C214 226 226 224 240 232" stroke="#C8242B" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".85"/>
+      <g class="fruit"><circle cx="140" cy="106" r="6" fill="#F2C230"/><circle cx="220" cy="92" r="6" fill="#E58BB0"/><circle cx="170" cy="76" r="5" fill="#8FB0F0"/><circle cx="194" cy="72" r="5" fill="#AC9FF2"/><circle cx="180" cy="104" r="7" fill="#3FA86A"/></g>
+      <g class="seed"><circle cx="70" cy="120" r="2.5" fill="#EFE7DA" opacity=".7"/><circle cx="292" cy="96" r="2" fill="#EFE7DA" opacity=".6"/><circle cx="250" cy="150" r="1.8" fill="#EFE7DA" opacity=".5"/></g>
+      <g class="seed" style="animation-delay:2s"><circle cx="104" cy="70" r="2" fill="#EFE7DA" opacity=".6"/><circle cx="310" cy="170" r="2.4" fill="#EFE7DA" opacity=".5"/></g>
+    </svg>
+    <p class="kicker">My Healing · Blueprint Healing</p>
+    <h1>Madison <em>Blueprint</em></h1>
+    <p class="sub">Fieldwork with Madison, written down so it stays with me</p>
+    <p class="dek">Two sessions six months apart. What each one asked of my body, my work and my mind, the protocol she gave me, and the threads that run through both.</p>
+    <div class="meta-row">
+      <span class="chip"><b>2</b> sessions</span>
+      <span class="chip">Apr 10 &amp; Oct 14, 2026</span>
+      <span class="chip"><b>12</b> protocol items</span>
+      <span class="chip"><b>8</b> common threads</span>
+    </div>
+    <p class="howto">Tap any <button class="t" tabindex="-1">dotted word</button> to see what it means. Tap <b style="color:var(--gold)">+ In her words</b> on a card to hear it the way Madison said it.</p>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sessions"><div class="in" role="tablist">
+  <button class="tab" role="tab" id="tab-oct" aria-controls="oct" aria-selected="true" style="--c:#7FD6A2"><i></i>Oct 14 · The Garden <small>Latest</small></button>
+  <button class="tab" role="tab" id="tab-apr" aria-controls="apr" aria-selected="false" style="--c:#7B6CE0"><i></i>Apr 10 · The Indigo Ray</button>
+  <button class="tab" role="tab" id="tab-thr" aria-controls="thr" aria-selected="false" style="--c:#D9A648"><i></i>Common threads</button>
+</div></nav>
+
+<main>
+  <section class="panel" id="oct" role="tabpanel" aria-labelledby="tab-oct" style="--c:#7FD6A2"></section>
+  <section class="panel" id="apr" role="tabpanel" aria-labelledby="tab-apr" style="--c:#9B8CF0" hidden></section>
+  <section class="panel" id="thr" role="tabpanel" aria-labelledby="tab-thr" style="--c:#D9A648" hidden></section>
+</main>
+
+<div class="pop" id="pop" role="tooltip"></div>
+
+<section class="close dots">
+  <div class="wide">
+    <img src="./assets/water-light.png" alt="">
+    <p class="big">"It’s just an emptying and a filling, and an emptying and a filling, <em>which is just life.</em>"</p>
+    <p class="by">Madison · Blueprint Healing · October 14, 2026</p>
+  </div>
+</section>
+
+<footer>
+  <img src="./assets/mark-light.png" alt="Christopher Hager">
+  <p><a href="https://hagerca.github.io/#healing">Back to the Alchemy Lab</a></p>
+  <p style="font-size:.82rem;margin-top:14px">Written from the session recordings. Madison’s suggestions are her suggestions, in her words; my body has the final say.</p>
+</footer>
+
+<script>
+/* ── Icons: 24px line drawings ─────────────────────────────────────── */
+const P = {
+  throat:'<path d="M9 3v5a3 3 0 0 0 6 0V3"/><path d="M12 11v10"/><path d="M8 17c1.2-1 2.6-1.5 4-1.5s2.8.5 4 1.5"/>',
+  gut:'<path d="M8 3c0 3 8 2 8 5s-8 2-8 5 8 2 8 5-4 3-4 3"/>',
+  drop:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 15a2.5 2.5 0 0 0 2.5 2.5"/>',
+  bone:'<path d="M7 5a2 2 0 1 0-2 3l9 9a2 2 0 1 0 3 2 2 2 0 1 0 2-3l-9-9a2 2 0 1 0-3-2z"/>',
+  shield:'<path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/>',
+  wave:'<path d="M3 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 17c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 7c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>',
+  moon:'<path d="M20 14A8 8 0 1 1 10 4a6.5 6.5 0 0 0 10 10z"/>',
+  coin:'<circle cx="12" cy="12" r="8.5"/><path d="M14.5 9c-.5-1-1.5-1.5-2.5-1.5-1.5 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1 2-2.5 2c-1 0-2-.5-2.5-1.5M12 6v1.5M12 16.5V18"/>',
+  infinity:'<path d="M7 9c-2.5 0-4 1.3-4 3s1.5 3 4 3c3.5 0 6.5-6 10-6 2.5 0 4 1.3 4 3s-1.5 3-4 3c-3.5 0-6.5-6-10-6z"/>',
+  seed:'<path d="M12 21V11"/><path d="M12 13c-4 0-6-3-6-7 4 0 6 3 6 7z"/><path d="M12 11c0-3.5 2-6 6-6 0 3.5-2 6-6 6z"/>',
+  book:'<path d="M12 6c-2-1.5-5-2-8-1.5v14c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-14c-3-.5-6 0-8 1.5z"/><path d="M12 6v14"/>',
+  home:'<path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/><path d="M10 20v-5h4v5"/>',
+  people:'<circle cx="8" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.5"/><path d="M2.5 20c.5-3.5 2.8-5.5 5.5-5.5s5 2 5.5 5.5"/><path d="M14 15c.8-.6 1.6-.9 2.5-.9 2.3 0 4.2 1.8 4.6 4.9"/>',
+  heartbeat:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/><path d="M8 11h2l1-2 2 4 1-2h2"/>',
+  cup:'<path d="M6 4h12l-1.5 8a4.5 4.5 0 0 1-9 0z"/><path d="M12 16.5V20"/><path d="M8.5 20.5h7"/><path d="M8 7.5h8" opacity=".5"/>',
+  sword:'<path d="M14.5 3.5L20 3.5 20 9 9 20 4 15z"/><path d="M7 13l4 4"/><path d="M4 20l2-2"/>',
+  rainbow:'<path d="M3 17a9 9 0 0 1 18 0"/><path d="M6.5 17a5.5 5.5 0 0 1 11 0"/><path d="M10 17a2 2 0 0 1 4 0"/>',
+  tear:'<path d="M12 4s5 5.5 5 9.5a5 5 0 0 1-10 0C7 9.5 12 4 12 4z"/><path d="M5 20h14" opacity=".5"/>',
+  tree:'<path d="M12 21v-7"/><path d="M12 14c-4.5 0-7-2.5-7-5.5S8 3 12 3s7 2.5 7 5.5S16.5 14 12 14z"/><path d="M9 21h6"/>',
+  eye:'<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
+  child:'<circle cx="12" cy="6" r="2.5"/><path d="M12 9v6"/><path d="M8 11.5l4 1.5 4-1.5"/><path d="M9.5 21l2.5-6 2.5 6"/><circle cx="18.5" cy="17" r="2"/>',
+  star:'<path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/>',
+  hands:'<path d="M7 20v-6l-2.5-3a1.4 1.4 0 0 1 2.2-1.7L9 12V5a1.3 1.3 0 0 1 2.6 0v6"/><path d="M11.6 10V4a1.3 1.3 0 0 1 2.6 0v6"/><path d="M14.2 10V5.5a1.3 1.3 0 0 1 2.6 0V14c0 3-2 6-5 6H7"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/>',
+  leaf:'<path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15"/><path d="M5 19l8-8"/>',
+  flame:'<path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2.5 1.5-3.5 2-5 .8 1.5 1.5 2 2.5 2 0-2.5-.5-4.5.5-7z"/>',
+  diamond:'<path d="M6 4h12l3 5-9 11L3 9z"/><path d="M3 9h18M9 4l3 16 3-16"/>',
+  bolt:'<path d="M13 3L5 13.5h6L10 21l8-10.5h-6z"/>',
+  ear:'<path d="M7 9a5 5 0 0 1 10 0c0 3-2.5 4-3 6.5S12.5 20 10 20"/><path d="M10 9.5a2 2 0 0 1 4 0c0 1-1 1.5-1.5 2"/>',
+  bottle:'<path d="M9.5 3h5v3l1.5 2.5V20a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V8.5L9.5 6z"/><path d="M8 12h8M8 16h8"/>',
+  jar:'<rect x="5" y="7" width="14" height="14" rx="3"/><path d="M7 3h10v4H7z"/><path d="M9 13h6"/>',
+  capsule:'<rect x="3.5" y="8.5" width="17" height="7" rx="3.5" transform="rotate(-35 12 12)"/><path d="M9.5 8.3l5 7.4" />',
+  plant:'<path d="M12 21v-8"/><path d="M12 13c0-4 2.5-7 7-7 0 4.5-3 7-7 7z"/><path d="M12 15c0-3-2-5.5-6-5.5 0 3.5 2.5 5.5 6 5.5z"/><path d="M8 21h8"/>',
+  frog:'<circle cx="8.5" cy="7.5" r="2"/><circle cx="15.5" cy="7.5" r="2"/><path d="M5 12c0-2 1.5-3 3.5-3h7c2 0 3.5 1 3.5 3 0 4-3 7-7 7s-7-3-7-7z"/><path d="M9 14.5c1.8 1 4.2 1 6 0"/>',
+  root:'<path d="M12 3v8"/><path d="M12 11c-2 3-5 4-7 8M12 11c2 3 5 4 7 8M12 11v10"/>',
+  liver:'<path d="M4 9c2-4 9-5 16-3 1 4-1 9-6 11-3 1.2-5-1-6-3-1-1.5-3-1.5-4-5z"/>',
+  coffee:'<path d="M5 9h11v5a5 5 0 0 1-10 0z"/><path d="M16 10.5h1.5a2 2 0 0 1 0 4H16"/><path d="M8 3c0 1.5 1 1.5 1 3M12 3c0 1.5 1 1.5 1 3"/>',
+  thread:'<path d="M3 12c3-6 6 6 9 0s6 6 9 0"/>',
+  compass:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>'
+};
+const I = (n,s=20) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[n]||P.star}</svg>`;
+
+/* ── Glossary: what the words mean ────────────────────────────────── */
+const G = {
+  fieldwork:['Fieldwork','Madison’s name for her sessions. She works directly in your energy field, narrating out loud what she sees and clears while you lie down and receive. Every session opens with consent: “Do I have permission to work in your field?”','Madison’s method','compass'],
+  blueprint:['Blueprint Healing','Madison’s practice. The idea is that each soul has an original design, a blueprint, and the work restores you toward it rather than adding something new.','Madison’s practice','diamond'],
+  monad:['Monadic reference','Madison’s phrase for your soul’s original template, the “original hue” you came in as. In her words: “My soul knows what it is, and my human doesn’t know how to explain it.”','Madison’s vocabulary','star'],
+  yeshua:['Yeshua','The Aramaic name of Jesus. Madison uses it for the Christ as a living teacher and frequency rather than a religion. In October she said Yeshua is “becoming your primary.”','Spiritual term','sun'],
+  isis:['Isis','The Egyptian great mother goddess: magic, healing, the divine feminine. In April Madison saw her as your “original mother.” In October she called you “an initiate of Isis.”','Spiritual term','moon'],
+  osiris:['Osiris','Isis’s partner in Egyptian myth, the god who dies and is restored. Madison saw “your Osiris lineage coming in” in April, right after Isis.','Spiritual term','ankh'],
+  rainbowray:['Christ rainbow ray','Madison’s name for the Christ frequency carried as the full spectrum of light at once. You’d felt the Christed frequency before, never named as a rainbow. She brought it through “very gently.”','Madison’s vocabulary','rainbow'],
+  lightlang:['Light language','The flowing syllables Madison speaks during clearing (“si armi kuya, no si akuya…”). Not a human language; the sound itself is the medicine. You recognise it from your own toning.','Spiritual term','wave'],
+  kambo:['Kambo','A cleanse using the dried secretion of the giant monkey frog of the Amazon, applied by a trained practitioner to tiny burns on the skin. It brings a short, intense purge. You’ve sat with it before, a while ago.','Plant and animal medicine','frog'],
+  cassava:['Cassava root drink','A drink made from cassava (yuca), the starchy root common in Costa Rica. Madison sees it before kambo “in supporting the facilitation of the microbiome clearing.” She didn’t name a recipe; ask her.','Her suggestion','root'],
+  ileocecal:['Ileocecal valve','The one-way valve where the small intestine meets the large intestine (colon), in the lower right belly. It keeps what has moved on from flowing back.','Anatomy','gut'],
+  cellsalts:['Cell salts','The mineral salts your cells need to hold water and conduct charge. Madison talked about bringing in “all the cell salts your system is needing” and replenishing your water body.','Body','drop'],
+  waterbody:['Water body','Madison’s phrase for the part of you made of water and its salts, physically and energetically. In October it “needs to be replenished”; in April it was “starting to restore.”','Madison’s vocabulary','drop'],
+  parasym:['Parasympathetic','The “rest and digest” branch of the nervous system, the opposite of fight or flight. When you shift into it the body repairs, digests and settles.','Body','heartbeat'],
+  mirror:['Mirror neurons','Brain cells that fire both when you do something and when you watch someone else do it. Madison’s point: let the boys’ play light up your own memory of how to be a kid.','Body and brain','eye'],
+  solstice:['Winter solstice','The year’s turning point, December 21, 2026. Madison: “By the solstice, you’ll be very clear.” She also saw you already “running some of the December solstice upgrades.”','A date to remember','sun'],
+  equinox:['Fall equinox','Around September 22, 2027. Madison saw your body opening in Sedona then, in desert sun and red clay. Her impression, not a plan.','A date to remember','compass'],
+  walkin:['Walk-in','In Madison’s language, a higher aspect of your soul arriving and taking up residence. In April: “your blue Sirian walk-in.” In October: “There’s your walk-in. Beautiful.”','Madison’s vocabulary','star'],
+  miasma:['Miasma','Madison’s own definition, April 10: “Miasma is inherited distortion of the energy field.” Something handed down a family line rather than created by you. Yours came through your mother’s line.','Madison’s vocabulary','thread'],
+  natalseals:['Natal seals','Madison’s term for imprints set while you were in the womb and at birth. In April she worked on “reviving your natal seals” and balancing your minerals from the womb forward.','Madison’s vocabulary','seed'],
+  relays:['Unworthiness relays','Madison’s image for old circuits running “I am not enough” alongside you, parallel to your sides. In April she said they weren’t very present for you, and cleared them anyway.','Madison’s vocabulary','bolt'],
+  octarians:['Octarians','The star family Madison sees you working with, a “very technical” lineage like her own. They use lasers, technicolor light, med beds and suction to update the body. She said you’ll be taken up “now and again for updates.”','Madison’s vocabulary','star'],
+  stargate:['Stargate','In Madison’s language, your personal doorway between dimensions. In April she rebuilt yours: “It looks pretty good here, but there’s some weirdness here.”','Madison’s vocabulary','compass'],
+  wood:['Wood element','From Chinese five-element medicine: growth, vision, planning. Its shadow is rigidity. In April Madison saw your inner “manuscripts” as clean and thorough, with “an uptightness” to loosen.','Five elements','tree'],
+  biofilm:['Biofilm','A slimy protective layer microbes build to shelter themselves, in places like the gut or liver. Madison saw one pulling out of your liver, and warned you might feel rough the next morning.','Body','liver'],
+  binder:['Binder','Something that soaks up and carries out what’s being cleared, like activated charcoal or bentonite clay. Binders also grab medicines, so they’re spaced away from any pill you need.','Body','jar'],
+  pineal:['Pineal calcification','Mineral deposits in the pineal gland, the small gland in the centre of the brain that governs sleep rhythm and is linked in spiritual traditions to the third eye. Madison saw “a slight calcification.”','Body','eye'],
+  violet:['Violet flame','A spiritual tool of transmutation, turning dense energy back into light. In April Madison brought yours in, and noticed parts of you trying to keep your flame dim.','Spiritual term','flame'],
+  grail:['The grail','The chalice of Christ. In April Madison saw “a beautiful covenant with Christ” and the grail “placed right at your chest.” In October the image became your own cup: emptied, then filled.','Spiritual term','cup'],
+  martyr:['Martyrdom software','Madison’s image for the old program that says giving must cost you. As it cleared in April she saw the shift to: “it’s natural for me to receive in exchange for my gifts.”','Madison’s vocabulary','coin'],
+  saboteurs:['Saboteurs','Old inner “weapons” that undercut you. In April Madison watched “a bunch of old weapons, they’re called saboteurs, fall off your body.”','Madison’s vocabulary','shield'],
+  tree:['The tree and the vow','Madison’s grounding practice: become a tree, centre, and feel the vow your soul came in to live by. She returns to it whenever she’s “in too many vortexes.”','Practice','tree'],
+  steward:['Steward of joy','Madison’s phrase from April: learning “how to be a better steward for joy in your life.” Not only carrying light, but tending pleasure, play and laughter on purpose.','Madison’s vocabulary','sun'],
+  mystic:['Mystic','One who knows the divine directly, from the inside, rather than by doctrine. Madison, April: “you’re an embodied mystic.” October: “you’re embodying the mystic.”','Spiritual term','eye'],
+  avatar:['Christ avatar','Madison’s phrase for the Christ frequency taking up residence in a human body. She said bringing it through “may bring up quite a bit of sorrow over the next couple days into like a week or two.”','Madison’s vocabulary','sun']
+};
+const gl = s => s.replace(/\[\[(\w+)\|([^\]]+)\]\]/g,(m,k,l)=>`<button class="t" type="button" data-g="${k}">${l}</button>`);
+
+/* ── Session data ──────────────────────────────────────────────────── */
+const OCT = {
+  id:'oct', eyebrow:'Session two · Latest', title:'The <em>Garden</em>', when:'Wednesday, October 14, 2026', time:'1:30 PM, Costa Rica', len:'84 minutes',
+  lede:'She saw my offerings as a garden: fertile soil, seeds thrown wide, some germinating, all the fruit of past labors gathered in. The work was not to pick one. It was to let them gestate.',
+  brought:'Strep since Thursday night, caught early and already on antibiotics. My voice and channel shifting for the third time: toning every day, seeing yellow and red as I speak. Far more people arriving, old clients and people asking to learn to channel. Prices that no longer match the work. And wanting more patience at home.',
+  body:[
+    ['throat','Strep, burned out at the root','She cleared the strep and the antibiotic energy from the throat down through the whole digestive tract: small intestine, [[ileocecal|ileocecal valve]], colon, lining.','Let’s burn that streptococcus overgrowth from its roots and origins, please.'],
+    ['gut','My gut lining is recoating','She watched the lining seal and recoat from the mouth all the way down. This is why aloe now and Mega Mucosa later.','Your belly lining is starting to coat your esophagus lining. All the way from the mouth to the whole digestive process. It’s all recoating and sealing.'],
+    ['drop','Refill the water body and the salts','My [[waterbody|water body]] needs replenishing. She brought in the [[cellsalts|cell salts]] and showed me a salty shoreline as a kind of charging station.','Let it hydrate you. Let it replenish you. It’s almost like a charging station. Not quite, but almost.'],
+    ['bone','Minerals into the bones','She remineralized bones and pericardium, and said my mineral absorption improves once I learn to close my attunement to other people.','Your mineral absorption is getting way better because of that.'],
+    ['shield','Microplastics: bamboo silica','She picked up a little microplastic in the reproductive system and named a plant-based silica, morning and night, to help bind and clear it.','A little bit of bamboo silica in the morning, at night, would be helpful.'],
+    ['heartbeat','Into rest and repair','My nervous system shifted into [[parasym|parasympathetic]]. Old medical trauma around the throat and teeth cleared and the blood began repairing. I felt lighter and needed a nap.','Your nervous system’s shifting more into parasympathetic here.']
+  ],
+  work:[
+    ['coin','$555 an hour is the floor','A baseline exchange, and she was clear it is frequency, not commerce. If spirit says go lower for someone, I can. There may be lessons in it.','Per hour minimum, you need to be doing 555 an hour. That’s light code exchange. That’s frequency exchange.'],
+    ['infinity','Let go of the 9s','The 360s and 450s that kept adding to 9 can go. I let them go on the spot. My offers re-formed around 8, the infinity sign.','Your offers have to feel good, right, true, and aligned for you, and they also have to be in integrity with the light you work with.'],
+    ['seed','I’m pregnant with these offerings','No need to choose yet. Let people come; the offers build from what they need. Clarity arrives by the [[solstice|winter solstice]].','So let them gestate. People will continue to come to you. By the solstice, you’ll be very clear.'],
+    ['book','I’m data collecting: let the library build','Astrology, Gene Keys, Human Design, the I Ching, tarot. All of it is collection for a body of work. My own word back: part library, part lab.','It’s almost like let the library build.'],
+    ['home','The business starts carrying me','Instead of me carrying the business, she felt it start to hold me. Nothing to do right now but receive, play, and let things marinate.','You may start to notice your business start to carry you or hold you.'],
+    ['people','Intimate in-person immersions','Three or four days, a few people, starting once a year. And executive-team retreats facilitated with Austin, since we both have corporate experience.','I see you being in person with a few people a couple times a year. Really intimate immersions.'],
+    ['heartbeat','“You can’t help everyone.”','My reply: “Yeah, but I could die trying, Madison.” Her answer, from experience: when she undercharges, she gets sick, and her guides won’t open the field until the rate is right.','Mystery schools are not free.']
+  ],
+  mind:[
+    ['cup','Empty the cup so it can be filled','Something like a clean, loving sword took the top of my head off, everything poured out, and then the Christ frequency filled the hollow. Empty, fill, empty, fill.','You start to fill up with you, and then you empty, and then God fills. It’s just an emptying and a filling, which is just life.'],
+    ['eye','I’m embodying the mystic','A channel, yes, and also a [[mystic|mystic]]. [[yeshua|Yeshua]] is becoming my primary guide; she brought the [[rainbowray|Christ rainbow ray]] through and saw unconditional love shaking old disease patterns loose.','You’re embodying the mystic. Yeshua as a mystic, also an alchemist.'],
+    ['tear','Sorrow may come, and it’s good','Over the next couple of days to two weeks, the deepest grief may rise as the [[avatar|Christ avatar]] lands in the body. Let it.','The deepest grief and sorrow, but it’s gonna feel good.'],
+    ['tree','Come back to the tree and the vow','When everything spins, pause, become [[tree|the tree]], and feel the vow. Mine came straight out: devotion to self, family and community, as the embodied divine masculine.','I’m not chasing after being a great man. I’m just spending time being a good man. (My words.)'],
+    ['ear','Attune, then come home','I tune into people’s fields instantly: what they think, feel, when they’ll breathe. The skill now is closing it again and bringing every sense back to myself.','You open to it, but we’ve got to teach you how to close it.'],
+    ['child','Let the boys teach me to play','Let their play wake up the kid I didn’t get to be, through [[mirror|mirror neurons]]. Dance between play and seriousness. Their season now is learning self-responsibility, and I’m the guide.','Let them be mirror neurons for you to help you remember how to be a kid.'],
+    ['star','Worthy because I’m worthy','An unintegrated piece came home at the end. It landed: “better.”','Worthy because you’re worthy. You’re valuable because you’re valuable.']
+  ],
+  rx:[
+    ['plant','Aloe vera','From the leaf, or aloe water','Raw gel from a fresh leaf, an inch or two, or aloe water. Morning, maybe twice a day.','Start now if I want.','“Your body’s asking for aloe vera. It’s like really strong right now.”','#7FD6A2','now',null],
+    ['jar','Mega Mucosa','Microbiome Labs','Start at ¼ to ½ scoop, build to 1 scoop morning and 1 scoop night.','After the kambo rounds, for deep gut replenishment.','“After the three rounds, you’re going to want to do deep gut replenishment.”','#5FC0AE','',['https://microbiomelabs.com/en-US/products/megamucosa','Official page']],
+    ['capsule','Mega IgG2000','Microbiome Labs','She didn’t give a dose. Follow the label.','Alongside Mega Mucosa.','“For you, there’s also Mega IgG. You’ll want to probably add that as well.”','#8FB0F0','',['https://microbiomelabs.com/en-US/products/megaigg2000','Official page']],
+    ['leaf','Bamboo silica','Plant-based (bamboo or horsetail)','Morning and night. She named no brand: “listen to your own intuition.”','Now, kept 2+ hours away from the antibiotic.','“Get the plant-based ones, through bamboo silica, or I think it also comes through horsetail.”','#D9A648','',['https://www.amazon.com/s?k=plant+based+bamboo+silica','Browse options']],
+    ['frog','Kambo','With a trained practitioner','Three rounds within one moon cycle.','For the strep and to clear antibiotic energy.','“I’m seeing kambo just to help with the strep and then also just getting some of the antibiotic energy out.”','#E58BB0','',null],
+    ['root','Cassava root drink','Ask Madison for her recipe','Before the kambo rounds.','To support the microbiome clearing. Optional.','“Again, not necessary. This is just suggestion.”','#F5A066','',null],
+    ['book','Love Without Conditions','Book (likely Paul Ferrini’s)','She called it “Loving Without Conditions.” The closest real title is Paul Ferrini’s Love Without Conditions: Reflections of the Christ Mind.','Whenever it calls.','“I can see the cover of it. Read it if you want to.”','#CFAAF2','',['https://www.amazon.com/s?k=Love+Without+Conditions+Paul+Ferrini','Find the book']]
+  ],
+  notes:[
+    '<b>Sorrow window: October 14 to about October 28.</b> Deep grief may come. She said it will feel good. Nothing to fix.',
+    '<b>Clarity by December 21, the winter solstice.</b> Don’t force offering decisions before then. The website launch is still aimed at the second week of November.',
+    '<b>Itchy hands mean change is coming.</b> They itched hard the moment she spoke of the six-month bridge. She was also clearing my blood.',
+    '<b>A salty shoreline in dreams or meditation</b> (the Baltic, maybe the Dead Sea) is a charging station: go, soak in the salts. The Mediterranean may bring different instructions. Note it if it happens.',
+    '<b>Sedona, fall equinox 2027.</b> Her impression of my body opening in desert sun and red clay. Not a plan, just a seed.',
+    '<b>Spacing on antibiotics.</b> Silica, charcoal and clay can bind medicine too, so I keep them at least two hours from a dose. <a href="https://www.livescience.com/health/medicine-drugs/does-activated-charcoal-interact-with-medication" target="_blank" rel="noopener">Why</a>.',
+    '<b>After a session, keep the integration block clear.</b> Today ended in a nap, as April did. The block after a Madison session is never scheduled over.',
+    '<b>Her suggestions are suggestions.</b> Her own words on kambo and cassava: “Every practitioner is different. Not necessary. This is just suggestion.” My gut decides.',
+    '<b>She’ll email the recording.</b> It belongs in Drive next to April’s, in the Madison Healing folder.'
+  ]
+};
+
+const APR = {
+  id:'apr', eyebrow:'Session one', title:'The <em>Indigo Ray</em>', when:'Friday, April 10, 2026', time:'2:00 PM Mountain', len:'1 hour 20 minutes',
+  lede:'She opened by naming an indigo ray shamanic blueprint and a channel that felt “so freaking clear.” The only knots were in my head, around a website and a price I already knew and hadn’t moved on.',
+  brought:'Hesitation. I was relaunching my website and resetting my pricing. I had the clarity; I just hadn’t done it. It was also my birthday week (March 31) and I was about to travel to Austin.',
+  body:[
+    ['bone','Phosphorus, and a touch of pineal calcification','She felt me malabsorbing a mineral, phosphorus, back to the womb, and a slight [[pineal|pineal calcification]]. She revived my [[natalseals|natal seals]] and rebalanced the minerals.','You’re malabsorbing something. It feels like a mineral. It’s phosphorus.'],
+    ['liver','A biofilm pulling out of the liver','She warned I might feel like mild food poisoning the next morning while the [[biofilm|biofilm]] cleared, and to take a [[binder|binder]].','This might not make you feel so good tomorrow morning. This is the biofilm clearing.'],
+    ['gut','A little parasite energy, nothing alarming','Mild, and she put it down partly to living in Costa Rica. Wormwood and black walnut hull were what my system asked for.','It’s like there’s a little bit of a parasite energy present, but it’s not horrible.'],
+    ['drop','Water bodies, immune and lymph restoring','A very gentle detox through thyroid and pineal, the water body cleared, and my immune and lymphatic systems restored.','Water bodies are starting to restore.'],
+    ['sun','The sun, the soil and the trees are my medicine','The land here does most of the work. Plant medicine is for when I’m called to an attunement, not often.','The soil, the sun and the trees are huge for you. Medicine work is only when you’re called.'],
+    ['wave','Expect the wobbles','A wobbly day after, maybe in waves. Rest, journal, get outside, and keep intending it clear.','If you do get wobbly, just keep intending to clear the wobbles.']
+  ],
+  work:[
+    ['coin','$550 to $750, not $450','I said I was being called to $450 to $500. She felt my body at $450 and it sank. She saw a scale from $550 up to a $750 offer.','450 feels okay, but when I feel that for you, there’s like a sinkingness to it.'],
+    ['people','Men’s work and brotherhood, in six-ish months','Asked how I work, I said one-to-one but pulled toward groups. She saw men’s workshops and a brotherhood forming, with no rush.','I see it happening in like the next six-ish months. There’s no rush. Your body’s still building it out.'],
+    ['diamond','A new masculine architecture','She corrected her own word mid-sentence, which is why it stuck: not a new archetype, a new architecture.','You’re prototyping a whole new masculine archetype. Not an archetype, architecture.'],
+    ['seed','People will come without chasing','In service to unity, the fields bring the aligned people. Travel to co-host and host was in the field too.','You don’t really have to work for it. It’s just going to come.'],
+    ['leaf','This season: the thorns, not the bud','In the garden of the rose, my gift right now is seeing the lessons and helping people through the thorns, especially men carrying pain. Later the work moves toward the bloom.','One of your gifts is being able to see the lessons and the learnings and helping people to navigate the thorns.'],
+    ['flame','Path igniter','I help people break illusions and false limits quickly, and ignite their path.','You’re also a path igniter. You help ignite people’s paths.']
+  ],
+  mind:[
+    ['drop','Purity is my medicine','I asked her directly about the purity codes. Water, the land, my own purification: people come to me for theirs.','We are the medicine, and you are the medicine embodied. And part of your medicine is purity and purification.'],
+    ['sun','Steward of joy','Not only a steward of light. Balance pleasure, play and masculinity, and remember to laugh. The next medicine journey would be about pleasure.','How to be a better steward for joy in your life.'],
+    ['coin','Receiving is natural','A thin [[martyr|martyrdom software]] cleared, along with scarcity hiding in little pockets, and familial dogma she saw as bricks.','It’s natural for me to receive in exchange for my gifts. Of course you’re gonna receive.'],
+    ['flame','Let the flame burn bright','When she brought the [[violet|violet flame]] up from my feet, part of me tried to push it away, an old fear from a past life. She helped the human hold it.','Your body just built an altar, and upon the altar, the flame can live.'],
+    ['shield','Masculinity is safe','Old roughness from childhood reworked into a truer masculine. Compassion and brotherhood where there used to be a wound.','What that’s reworking is: masculinity is safe.'],
+    ['diamond','Diamond-light clarity','A gift of sight: seeing every facet of a life, and helping people line their vision up with God’s.','One of your gifts of your sight and your vision is being able to see all of the facets of life.']
+  ],
+  rx:[
+    ['bottle','Liquid apple cider vinegar','Swapped from the pills, for one month','1 tablespoon, building to 2, between 10 AM and 12 PM, splashed into the morning lemon and sea-salt water.','Set the intention that it clears the pineal.','“They’re preferring if you could do liquid for the next month.”','#F2C230','',['https://www.bragg.com/products/organic-apple-cider-vinegar','Bragg ACV']],
+    ['capsule','SCRAM','HealthForce Superfoods','1 to 2 capsules a day for one month. Her dose, far lighter than the label’s.','To reset the blood and some digestive organs.','“They’re showing me Scram, the HealthForce. I don’t usually recommend that one, but that’s the one your system’s asking for.”','#7FD6A2','',['https://healthforce.com/products/scram','Official page']],
+    ['liver','Beef liver','The local butcher, ground in with beef','Once a month, timed to the moon cycle she named.','For minerals and hormone balance.','“You only need to eat it once a month.”','#E58BB0','',null],
+    ['jar','A binder: activated charcoal or bentonite clay','I already had liquid charcoal','Double the suggested dose, before bed. Again in the morning if called.','For the liver biofilm clearing.','“Any binder you have, take double the suggested dose with the intention to help pull whatever is meant to come out, out.”','#8FB0F0','',['https://www.amazon.com/s?k=food+grade+bentonite+clay','Browse clay']],
+    ['coffee','Coffee enema','The morning after the session','After the first or second bowel movement. Gentle, only if it suits.','To support the detox.','“I don’t want to hit your body too hard, but if you do have coffee enema, I would recommend one tomorrow morning.”','#F5A066','',null]
+  ],
+  notes:[
+    '<b>The Octarians may take me up “now and again for updates.”</b> The strobe light and the twitching early in the session were them. Lasers through the eyes may come with vision updates, and can detox the body quickly.',
+    '<b>The day after can be rough.</b> Mild food-poisoning feelings, tiredness, wobbles in waves. That is the biofilm and the field updating, not something new going wrong.',
+    '<b>Medicine journeys only when called.</b> The sun, the soil and the trees here do most of the work.',
+    '<b>Iguanas are guardians.</b> She saw one in my field and it asked not to be cleared: “We’re his protectors.”',
+    '<b>Her six-month call, April 10:</b> men’s workshops and brotherhood by about October. See Common threads for what actually happened.',
+    '<b>The words she used</b> (miasma, natal seals, unworthiness relays, stargate) are hers. Tap them for what she meant.'
+  ],
+  extraTerms:'Her other words that day: [[miasma|miasma]], [[relays|unworthiness relays]], [[octarians|Octarians]], [[stargate|stargate]], [[walkin|walk-in]], [[wood|wood element]], [[isis|Isis]], [[osiris|Osiris]], [[grail|the grail]], [[saboteurs|saboteurs]], [[steward|steward of joy]].'
+};
+
+const THREADS = [
+  ['coin','The number','#F2C230','$550 to $750. $450 “sinks.”','$555 an hour is the floor. Let the 9s go.','Same number, six months apart, without her looking it up. My prices haven’t caught up with it yet.'],
+  ['seed','No rush, let it build','#7FD6A2','“There’s no rush. Your body’s still building it out.”','“Let them gestate.” “It’s a build-out process. Be patient with yourself.”','Both times the instruction was the same: don’t force the form. Collect, receive, let it come.'],
+  ['people','Groups, called six months out','#8FB0F0','Men’s workshops and a brotherhood “in the next six-ish months.”','The group offering drew two people and I moved them to one-to-one. She now sees small in-person immersions and executive retreats with Austin.','The call landed on time, in a different shape. Groups are still coming; small and in person first.'],
+  ['sun','Christ and Isis, both times','#E58BB0','A covenant with Christ, [[grail|the grail]] at my chest, a Christ anointment. [[isis|Isis]] as my original mother.','[[yeshua|Yeshua]] becoming my primary, the [[rainbowray|Christ rainbow ray]], an initiate of Isis.','The same two guides, growing louder. In April Christ was coming in; by October he’s speaking through my voice.'],
+  ['gut','The gut is where it clears','#5FC0AE','Liver [[biofilm|biofilm]], a bacterial overlay on the colon, a little parasite energy.','Strep cleared down the whole digestive tract; the lining recoating and sealing.','Both sessions landed in my belly, and both protocols go there. The gut is my clearing house.'],
+  ['drop','Minerals, salts and water','#8FB0F0','Phosphorus malabsorption, cell salts “assimilating better,” water bodies restoring.','Cell salts, the water body replenished, bones remineralized, a salty sea to recharge in.','My body keeps asking for minerals and salt water. Purity in April; replenishing in October.'],
+  ['eye','The embodied mystic','#CFAAF2','“You’re an embodied mystic too. You are the medicine embodied.”','“You’re embodying the mystic.”','She named it twice, six months apart, in nearly the same words. Wizards, sages, mystics: the thread I’ve been pulling.'],
+  ['diamond','The masculine, rebuilt','#D9A648','“A whole new masculine architecture.” Masculinity is safe.','My vow: the embodied divine masculine, as a good man rather than a great one.','April named the blueprint. In October I said it back in my own words, without being asked.']
+];
+
+/* ── Render ────────────────────────────────────────────────────────── */
+const SCENES = {
+  oct:`<svg viewBox="0 0 520 300" aria-hidden="true"><defs><radialGradient id="sunG" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#F7D46A"/><stop offset="1" stop-color="#F7D46A" stop-opacity="0"/></radialGradient><linearGradient id="soil" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A2A2E"/><stop offset="1" stop-color="#1C0D14"/></linearGradient></defs>
+    <circle cx="420" cy="70" r="70" fill="url(#sunG)" opacity=".55"><animate attributeName="r" values="62;74;62" dur="7s" repeatCount="indefinite"/></circle><circle cx="420" cy="70" r="20" fill="#F7D46A"/>
+    <path d="M0 210 Q130 196 260 206 T520 202 V300 H0Z" fill="url(#soil)"/>
+    ${[60,130,200,270,340,410,470].map((x,i)=>{const h=[38,62,24,78,48,66,30][i];const c=['#F2C230','#E58BB0','#8FB0F0','#3FA86A','#CFAAF2','#F5A066','#5FC0AE'][i];const bloom=h>40;return `<g style="transform-origin:${x}px 206px;animation:grow 2.4s ${i*.22}s cubic-bezier(.3,1.4,.5,1) both"><path d="M${x} 206 C${x-3} ${206-h/2} ${x+3} ${206-h*.8} ${x} ${206-h}" stroke="#7FD6A2" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M${x} ${206-h*.45} c-10 -4 -14 -12 -12 -18 c8 2 12 10 12 18z" fill="#3FA86A"/>${bloom?`<circle cx="${x}" cy="${206-h}" r="7" fill="${c}"/><circle cx="${x}" cy="${206-h}" r="15" fill="${c}" opacity=".18"/>`:`<circle cx="${x}" cy="${206-h}" r="3.5" fill="#7FD6A2"/>`}</g>`}).join('')}
+    ${[[40,234],[110,252],[180,240],[250,262],[320,246],[390,258],[460,240],[90,276],[300,280],[430,282]].map(([x,y],i)=>`<ellipse cx="${x}" cy="${y}" rx="3.2" ry="2" fill="#D9A648" opacity=".7"/>`).join('')}
+    <text x="26" y="40" font-family="Instrument Serif,serif" font-style="italic" font-size="22" fill="#EFE7DA" opacity=".85">“you’re pregnant with all these offerings”</text>
+    <style>@keyframes grow{from{transform:scaleY(0);opacity:0}to{transform:scaleY(1);opacity:1}}</style></svg>`,
+  apr:`<svg viewBox="0 0 520 300" aria-hidden="true"><defs><linearGradient id="ind" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7B6CE0" stop-opacity=".0"/><stop offset=".5" stop-color="#7B6CE0" stop-opacity=".55"/><stop offset="1" stop-color="#2C5FC4" stop-opacity=".0"/></linearGradient></defs>
+    <rect x="236" y="0" width="48" height="300" fill="url(#ind)"><animate attributeName="opacity" values=".6;1;.6" dur="5s" repeatCount="indefinite"/></rect>
+    ${Array.from({length:22},(_,i)=>`<circle cx="${30+((i*97)%470)}" cy="${20+((i*53)%170)}" r="${1+(i%3)*.6}" fill="#EFE7DA" opacity=".5"><animate attributeName="opacity" values=".15;.8;.15" dur="${3+(i%4)}s" begin="${i*.3}s" repeatCount="indefinite"/></circle>`).join('')}
+    <g transform="translate(260 150)"><g><animateTransform attributeName="transform" type="rotate" values="0;360" dur="40s" repeatCount="indefinite"/><circle r="92" fill="none" stroke="#D9A648" stroke-opacity=".35" stroke-dasharray="2 8"/></g>
+    <path d="M-46 -26 h92 l24 34 -70 80 -70 -80z" fill="#3B1A4C" stroke="#AC9FF2" stroke-width="2"/><path d="M-70 8h140M-22 -26 0 88 22 -26M-46 -26 -22 8 0 -26 22 8 46 -26" fill="none" stroke="#AC9FF2" stroke-opacity=".7" stroke-width="1.4"/>
+    <path d="M-20 -14 l8 0 -4 12z" fill="#fff" opacity=".7"><animate attributeName="opacity" values="0;.9;0" dur="3.4s" repeatCount="indefinite"/></path></g>
+    <path d="M0 260 Q130 248 260 258 T520 252" stroke="#3FA86A" stroke-opacity=".5" fill="none"/>
+    <text x="26" y="40" font-family="Instrument Serif,serif" font-style="italic" font-size="22" fill="#EFE7DA" opacity=".85">“your channel feels so freaking clear”</text></svg>`
+};
+
+function takeaway(t,k){
+  const [ic,h,p,q] = t;
+  return `<article class="tk" style="--k:${k}"><div class="row"><div class="ico">${I(ic)}</div><div><h5>${gl(h)}</h5><p>${gl(p)}</p>
+    <details><summary>In her words</summary><blockquote>“${q.replace(/ \(My words\.\)$/,'')}”<cite>${/\(My words\.\)$/.test(q)?'Me, answering her':'Madison'}</cite></blockquote></details></div></div></article>`;
+}
+function col(name,sub,ic,k,list){
+  return `<div class="col"><div class="col-head"><div class="badge" style="--k:${k}">${I(ic,22)}</div><div><h3>${name}</h3><span>${sub}</span></div></div>${list.map(t=>takeaway(t,k)).join('')}</div>`;
+}
+function rxCard(r){
+  const [ic,name,maker,dose,when,why,color,status,link] = r;
+  return `<div class="pill" style="--p:${color}"><div class="top"><div class="ico">${I(ic,22)}</div><div><h4>${name}</h4><span class="maker">${maker}</span></div></div>
+    <dl><dt>How</dt><dd>${dose}</dd><dt>When</dt><dd>${when}</dd></dl><p class="why">${why}</p>
+    <div class="foot"><span class="status${status?' now':''}">${status?'Start now':'Her suggestion'}</span>${link?`<a class="buy" href="${link[0]}" target="_blank" rel="noopener">${link[1]} ${I('compass',13)}</a>`:'<span class="buy ghost">No link needed</span>'}</div></div>`;
+}
+function session(S){
+  return `<div class="wide">
+    <div class="sess-head"><div><p class="eyebrow">${S.eyebrow}</p><h2>${S.title}</h2><p class="lede">${S.lede}</p>
+      <div class="facts"><span class="chip">${S.when}</span><span class="chip">${S.time}</span><span class="chip">${S.len}</span><span class="chip">[[fieldwork|Fieldwork]] on Zoom</span></div></div>
+      <div class="scene">${SCENES[S.id]}</div></div>
+    <div class="brought"><div class="ic">${I('compass',20)}</div><div><h4>What I brought in</h4><p>${S.brought}</p></div></div>
+    <div class="cols">
+      ${col('Body','what my body is doing','leaf','#7FD6A2',S.body)}
+      ${col('Work','the practice and the money','coin','#F2C230',S.work)}
+      ${col('Mind &amp; heart','how I hold it all','heartbeat','#CFAAF2',S.mind)}
+    </div>
+    ${S.extraTerms?`<p style="margin:26px 0 0;color:var(--faint);font-size:.94rem">${S.extraTerms}</p>`:''}
+    <div class="block"><div class="block-head"><div><p class="eyebrow">The protocol</p><h3>What she told me to <em>get</em></h3><p>Every supplement, food and practice she named, with her dose and her reason. Links go to the maker where there is one.</p></div></div>
+      <div class="rx">${S.rx.map(rxCard).join('')}</div></div>
+    <aside class="note"><h3>For <em>future me</em></h3><p>The things worth knowing later, after the details fade.</p><ol>${S.notes.map(n=>`<li><span>${n}</span></li>`).join('')}</ol></aside>
+  </div>`;
+}
+function threads(){
+  const stops = [
+    ['Apr 10, 2026','Session one. “Six-ish months” to groups.','#9B8CF0'],
+    ['Oct 14, 2026','Session two, six months on. The bridge to the next six.','#7FD6A2'],
+    ['Nov, week 2','Website and new pricing aimed to launch.','#F2C230'],
+    ['Dec 21, 2026','Winter solstice. “You’ll be very clear.”','#E58BB0'],
+    ['Apr 2027','The far end of the six-month bridge.','#8FB0F0'],
+    ['Sep 2027','Fall equinox. Sedona, her impression.','#D9A648']
+  ];
+  return `<div class="wide">
+    <div class="sess-head" style="grid-template-columns:1fr"><div><p class="eyebrow">Both sessions, side by side</p><h2>Common <em>threads</em></h2>
+      <p class="lede">What Madison said twice, six months apart, sometimes in the same words. When something comes through the field twice, I pay attention.</p></div></div>
+    <div class="timeline" id="tl"><div class="tl-track"><div class="tl-fill"></div></div>
+      <div class="tl-stops">${stops.map((s,i)=>`<div class="stop${i>1?' hollow':''}" style="--s:${s[2]};transition-delay:${.3+i*.35}s"><div class="dot"></div><b>${s[0]}</b><span>${s[1]}</span></div>`).join('')}</div></div>
+    <div class="threads">${THREADS.map(([ic,h,c,a,o,so])=>`<article class="thread" style="--h:${c}"><div class="th"><div class="ico">${I(ic,20)}</div><h4>${h}</h4></div>
+      <div class="pair"><div class="side"><small>April 10</small>${gl(a)}</div><div class="link">${I('thread',18)}</div><div class="side"><small>October 14</small>${gl(o)}</div></div>
+      <p class="so"><b>So</b>${so}</p></article>`).join('')}</div>
+  </div>`;
+}
+document.getElementById('oct').innerHTML = gl(session(OCT));
+document.getElementById('apr').innerHTML = gl(session(APR));
+document.getElementById('thr').innerHTML = threads();
+
+/* Hero grid lines */
+document.getElementById('gridlines').innerHTML = Array.from({length:13},(_,i)=>`<line x1="${i*30}" y1="0" x2="${i*30}" y2="250" stroke="#8FB0F0" stroke-opacity=".12"/>`).join('') + Array.from({length:9},(_,i)=>`<line x1="0" y1="${i*30}" x2="360" y2="${i*30}" stroke="#8FB0F0" stroke-opacity=".12"/>`).join('');
+
+/* Tabs */
+const tabs=[...document.querySelectorAll('.tab')];
+function show(id,push){
+  tabs.forEach(t=>t.setAttribute('aria-selected',t.getAttribute('aria-controls')===id));
+  document.querySelectorAll('.panel').forEach(p=>p.hidden=p.id!==id);
+  reveal(); if(push) history.replaceState(null,'','#'+id);
+  const top=document.querySelector('.tabs').offsetTop; if(scrollY>top) scrollTo({top,behavior:'smooth'});
+}
+tabs.forEach(t=>t.addEventListener('click',()=>show(t.getAttribute('aria-controls'),true)));
+if(['oct','apr','thr'].includes(location.hash.slice(1))) show(location.hash.slice(1));
+
+/* Reveal on scroll */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+function reveal(){document.querySelectorAll('.panel:not([hidden]) .tk:not(.in), .panel:not([hidden]) .thread:not(.in), .panel:not([hidden]) .timeline:not(.in)').forEach((el,i)=>{el.style.transitionDelay=el.classList.contains('timeline')?'0s':(i%7)*60+'ms';io.observe(el);});}
+reveal();
+
+/* Glossary pop-outs */
+const pop=document.getElementById('pop'); let cur=null;
+function openPop(btn){
+  const g=G[btn.dataset.g]; if(!g) return; cur=btn;
+  pop.innerHTML=`<div class="pt"><i>${I(g[3]||'star',15)}</i><b>${g[0]}</b></div><p>${g[1]}</p><span class="src">${g[2]}</span>`;
+  pop.classList.add('on');
+  const r=btn.getBoundingClientRect(), w=pop.offsetWidth, h=pop.offsetHeight;
+  let x=Math.min(Math.max(12,r.left+r.width/2-w/2),innerWidth-w-12), y=r.top-h-10; if(y<70) y=r.bottom+10;
+  pop.style.left=x+'px'; pop.style.top=y+'px';
+}
+function closePop(){pop.classList.remove('on'); cur=null;}
+document.addEventListener('click',e=>{const b=e.target.closest('.t[data-g]'); if(b){e.stopPropagation(); cur===b?closePop():openPop(b);} else if(!e.target.closest('.pop')) closePop();});
+document.addEventListener('mouseover',e=>{const b=e.target.closest('.t[data-g]'); if(b && matchMedia('(hover:hover)').matches) openPop(b);});
+document.addEventListener('mouseout',e=>{const b=e.target.closest('.t[data-g]'); if(b && matchMedia('(hover:hover)').matches && !pop.matches(':hover')) setTimeout(()=>{if(!pop.matches(':hover')&&cur===b)closePop();},120);});
+pop.addEventListener('mouseleave',()=>{ if(matchMedia('(hover:hover)').matches) closePop(); });
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePop();});
+addEventListener('scroll',()=>{ if(cur && matchMedia('(hover:hover)').matches) closePop(); },{passive:true});
+</script>
+</body>
+</html>
